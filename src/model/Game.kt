@@ -1,3 +1,7 @@
 package model
 
-data class Game (val numberOfPlayer: Int = 2, val scoreToReach: Int)
+data class Game (val players: MutableList<Player>, val scoreToReach: Int) {
+    override fun toString(): String {
+        return "players : $players, score to reach : $scoreToReach"
+    }
+}

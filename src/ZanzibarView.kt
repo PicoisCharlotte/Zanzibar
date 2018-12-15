@@ -6,4 +6,7 @@ interface ZanzibarView {
     fun getNumberOfPlayer(): Int
 
     fun createPlayers(numberPlayer: Int): MutableList<Player>
+
+    fun fixScoreToReach(): Int
+
 }

@@ -7,7 +7,7 @@
 #Game rules :
 The first thing is to fix a score to reach
  
-To start, we need to determine which player start by a dice roll. Player which have the higher score begins
+To start, we need to determine which player start by a dice roll. model.Player which have the higher score begins
 
 Every turn, player can roll dice 3 times to obtain the better Zanzi (which means three of kind -> three identical values).
 He can roll three, two or one dice or decide to stop at the first roll or at the second one.

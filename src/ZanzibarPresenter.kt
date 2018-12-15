@@ -1,3 +1,4 @@
+import model.Game
 import model.Player
 
 class ZanzibarPresenter {
@@ -9,5 +10,11 @@ class ZanzibarPresenter {
         val numberPlayer: Int = zanzibarView.getNumberOfPlayer()
 
         val players: MutableList<Player> = zanzibarView.createPlayers(numberPlayer)
+
+        val score: Int = zanzibarView.fixScoreToReach()
+
+        val game = Game(players, score)
+
+        println(game)
     }
 }
