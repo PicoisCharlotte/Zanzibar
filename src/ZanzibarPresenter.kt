@@ -2,16 +2,14 @@ import model.Game
 import model.Player
 
 class ZanzibarPresenter {
-    private val zanzibarView: ZanzibarConsole = ZanzibarConsole(this)
+    private val zanzibarView: ZanzibarView = ZanzibarConsole()
 
     fun start() {
         zanzibarView.welcomeGame()
 
-        val numberPlayer: Int = zanzibarView.getNumberOfPlayer()
+        val players: MutableList<Player> = zanzibarView.createPlayers()
 
-        val players: MutableList<Player> = zanzibarView.createPlayers(numberPlayer)
-
-        val score: Int = zanzibarView.fixScoreToReach()
+        val score: Int = zanzibarView.askScoreToReach()
 
         val game = Game(players, score)
 

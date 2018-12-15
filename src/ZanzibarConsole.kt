@@ -1,26 +1,12 @@
-import model.Game
 import model.Player
 
-class ZanzibarConsole(zanzibarPresenter: ZanzibarPresenter) : ZanzibarView {
+class ZanzibarConsole: ZanzibarView {
     override fun welcomeGame() {
         println("Welcome to Zanzibar !")
     }
 
-    override fun getNumberOfPlayer(): Int {
-        var number: Int
-        do {
-            println("How many players will join ? (min 2)")
-            val playerNumber: String? = readLine()
-            number = playerNumber?.toInt() ?: 2
-
-        } while (number < 2)
-
-        println("$number players will play")
-
-        return number
-    }
-
-    override fun createPlayers(numberPlayer: Int): MutableList<Player> {
+    override fun createPlayers(): MutableList<Player> {
+        val numberPlayer = askNumberOfPlayer()
         val players: MutableList<Player> = mutableListOf()
 
         for (i in 1..numberPlayer) {
@@ -36,7 +22,21 @@ class ZanzibarConsole(zanzibarPresenter: ZanzibarPresenter) : ZanzibarView {
         return players
     }
 
-    override fun fixScoreToReach(): Int {
+    private fun askNumberOfPlayer(): Int {
+        var number: Int
+        do {
+            println("How many players will join ? (min 2)")
+            val playerNumber: String? = readLine()
+            number = playerNumber?.toInt() ?: 2
+
+        } while (number < 2)
+
+        println("$number players will play")
+
+        return number
+    }
+
+    override fun askScoreToReach(): Int {
         var scoreToReach: Int
         var choice: String? = null
         var score: String?
