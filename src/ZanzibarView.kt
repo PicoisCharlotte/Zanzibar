@@ -7,4 +7,6 @@ interface ZanzibarView {
 
     fun askScoreToReach(): Int
 
+    fun askWhoBegin(players: MutableList<Player>): Player
+
 }

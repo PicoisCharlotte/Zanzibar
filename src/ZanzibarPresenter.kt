@@ -13,6 +13,6 @@ class ZanzibarPresenter {
 
         val game = Game(players, score)
 
-        println(game)
+        val beginPlayer = zanzibarView.askWhoBegin(players)
     }
 }

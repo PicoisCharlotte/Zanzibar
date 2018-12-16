@@ -1,4 +1,5 @@
 import model.Player
+import java.util.*
 
 class ZanzibarConsole: ZanzibarView {
     override fun welcomeGame() {
@@ -17,8 +18,6 @@ class ZanzibarConsole: ZanzibarView {
 
             players.add(player)
         }
-        println("List of players $players")
-
         return players
     }
 
@@ -59,5 +58,36 @@ class ZanzibarConsole: ZanzibarView {
         return scoreToReach
     }
 
+    override fun askWhoBegin(players: MutableList<Player>): Player{
+        println("We have to determine which player will begin")
 
+        val random = Random()
+        var total: Int
+        var higherScore = 0
+
+        var beginPlayer = Player()
+
+        for (player in players) {
+            val firstValue = random.nextInt(1..7)
+            val secondValue = random.nextInt(1..7)
+            val thirdValue = random.nextInt(1..7)
+
+            total = firstValue + secondValue + thirdValue
+
+            if(total > higherScore) {
+                higherScore = total
+                beginPlayer = player
+            }
+            player.score = total
+
+            println("${player.name}'s score is ${player.score}")
+
+        }
+        println("Player $beginPlayer will begin")
+        return beginPlayer
+    }
+}
+
+private fun Random.nextInt(range: IntRange): Int {
+    return range.start + nextInt(range.last - range.start)
 }
