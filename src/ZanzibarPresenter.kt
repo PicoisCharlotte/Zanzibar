@@ -11,8 +11,19 @@ class ZanzibarPresenter {
 
         val score: Int = zanzibarView.askScoreToReach()
 
-        val game = Game(players, score)
-
         val beginPlayer = zanzibarView.askWhoBegin(players)
+
+        var playersOrder = zanzibarView.orderPlayers(players, beginPlayer)
+
+        playersOrder = zanzibarView.resetScore(playersOrder)
+        /*if (playersOrder != null) {
+            for(player in playersOrder){
+
+                print(player )
+            }
+        }*/
+        val game = Game(playersOrder, score)
     }
 }
+
+// TODO : - message ordre joueurs

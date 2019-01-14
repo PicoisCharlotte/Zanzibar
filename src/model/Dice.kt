@@ -1,6 +1,6 @@
 package model
 
-class Dice(val value: Int) {
+class Dice(val idDice: Int, val value: Int) {
     override fun toString(): String {
         return "Dice(value=$value)"
     }
