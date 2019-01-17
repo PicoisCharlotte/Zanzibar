@@ -9,17 +9,16 @@ class ZanzibarPresenter {
 
         val players: MutableList<Player> = zanzibarView.createPlayers()
 
-        val score: Int = zanzibarView.askScoreToReach()
+         zanzibarView.askScoreToReach()
 
         val beginPlayer = zanzibarView.askWhoBegin(players)
 
         var playersOrder = zanzibarView.orderPlayers(players, beginPlayer)
 
         playersOrder = zanzibarView.resetScore(playersOrder)
-        if (playersOrder != null) {
-            for(player in playersOrder){
-                zanzibarView.firstRound(player)
-            }
+        for(player in playersOrder){
+            val dices = zanzibarView.firstRound(player)
+            zanzibarView.keepDice(dices)
         }
         //val game = Game(playersOrder, score)
 

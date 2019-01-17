@@ -105,12 +105,33 @@ class ZanzibarConsole: ZanzibarView {
         return player
     }
 
-    override fun firstRound(player: Player){
+    override fun firstRound(player: Player): MutableList<Dice> {
         val dices: MutableList<Dice> = rollThreeDices()
 
         for (dice in dices) {
             println(dice)
         }
+        return dices
+    }
+
+    override fun keepDice(dices: MutableList<Dice>): MutableList<Dice>{
+        val diceToKeep: MutableList<Dice> = mutableListOf()
+
+        var choice: String?
+
+        do {
+            println("Which dice(s) will you keep ?")
+            val answer = readLine()
+            println("Do you want to keep another one ? Y/N")
+            choice = readLine()
+            for (dice in dices) {
+                if(dice.idDice ==  answer!!.toInt())
+                diceToKeep.add(dice)
+            }
+
+        } while (choice!!.startsWith("y", ignoreCase = true))
+
+        return diceToKeep
     }
 
     private fun rollThreeDices(): MutableList<Dice> {
