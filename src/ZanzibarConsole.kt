@@ -3,7 +3,6 @@ import model.Player
 import java.util.*
 
 class ZanzibarConsole: ZanzibarView {
-
     override fun welcomeGame() {
         println("Welcome to Zanzibar !")
     }
@@ -91,7 +90,6 @@ class ZanzibarConsole: ZanzibarView {
 
     override fun orderPlayers(players: MutableList<Player>, playerBegin: Player): MutableList<Player> {
         var playersOrder : MutableList<Player> = mutableListOf()
-        //playersOrder.add(playerBegin)
         playersOrder = players.sortedBy {it.score }.toMutableList()
         return playersOrder.asReversed()
     }
@@ -107,6 +105,29 @@ class ZanzibarConsole: ZanzibarView {
         return player
     }
 
+    override fun firstRound(player: Player){
+        val dices: MutableList<Dice> = rollThreeDices()
+
+        for (dice in dices) {
+            println(dice)
+        }
+    }
+
+    private fun rollThreeDices(): MutableList<Dice> {
+        val random = Random()
+
+        val dices: MutableList<Dice> = mutableListOf()
+
+        val firstDice = Dice(1, random.nextInt(1..7))
+        val secondDice = Dice(2, random.nextInt(1..7))
+        val thirdDice = Dice(3, random.nextInt(1..7))
+
+        dices.add(firstDice)
+        dices.add(secondDice)
+        dices.add(thirdDice)
+
+        return dices
+    }
 }
 
 private fun Random.nextInt(range: IntRange): Int {

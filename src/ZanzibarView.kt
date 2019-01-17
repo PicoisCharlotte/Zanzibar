@@ -16,4 +16,5 @@ interface ZanzibarView {
 
     fun rollDice(dice: MutableList<Dice>, player: Player): Player
 
+    fun firstRound(player: Player)
 }

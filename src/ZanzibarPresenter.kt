@@ -16,13 +16,13 @@ class ZanzibarPresenter {
         var playersOrder = zanzibarView.orderPlayers(players, beginPlayer)
 
         playersOrder = zanzibarView.resetScore(playersOrder)
-        /*if (playersOrder != null) {
+        if (playersOrder != null) {
             for(player in playersOrder){
-
-                print(player )
+                zanzibarView.firstRound(player)
             }
-        }*/
-        val game = Game(playersOrder, score)
+        }
+        //val game = Game(playersOrder, score)
+
     }
 }
 
