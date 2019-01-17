@@ -18,7 +18,10 @@ class ZanzibarPresenter {
         playersOrder = zanzibarView.resetScore(playersOrder)
         for(player in playersOrder){
             val dices = zanzibarView.firstRound(player)
-            zanzibarView.keepDice(dices)
+            val diceToChange = zanzibarView.keepDice(dices)
+
+            zanzibarView.rollDice(diceToChange, dices, player)
+
         }
         //val game = Game(playersOrder, score)
 

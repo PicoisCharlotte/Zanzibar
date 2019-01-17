@@ -14,7 +14,7 @@ interface ZanzibarView {
 
     fun resetScore(players: MutableList<Player>): MutableList<Player>
 
-    fun rollDice(dice: MutableList<Dice>, player: Player): Player
+    fun rollDice(diceToChange: MutableList<Dice>, dices: MutableList<Dice>, player: Player): Player
 
     fun firstRound(player: Player): MutableList<Dice>
 
