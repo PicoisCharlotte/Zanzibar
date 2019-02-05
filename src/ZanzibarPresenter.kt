@@ -16,10 +16,17 @@ class ZanzibarPresenter {
 
         playersOrder = zanzibarView.resetScore(playersOrder)
         for(player in playersOrder){
+            println("${player.name} is playing ")
             val dices = zanzibarView.firstRound(player)
             val diceToChange = zanzibarView.changeDice(dices)
 
-            zanzibarView.rollDice(diceToChange, dices, player)
+            do {
+                val dicesToKeep = zanzibarView.rollDice(diceToChange, dices, player)
+
+                zanzibarView.makeScoreVelueCorrespondance(dicesToKeep)
+
+            } while (zanzibarView.askToContinueRound())
+
 
         }
         //val game = Game(playersOrder, score)

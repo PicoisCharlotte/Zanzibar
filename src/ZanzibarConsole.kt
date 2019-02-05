@@ -150,7 +150,7 @@ class ZanzibarConsole: ZanzibarView {
         return dices
     }
 
-    override fun rollDice(dicesToChange: MutableList<Dice>, dicesToKeep: MutableList<Dice>, player: Player): Player {
+    override fun rollDice(dicesToChange: MutableList<Dice>, dicesToKeep: MutableList<Dice>, player: Player): MutableList<Dice> {
         val random = Random()
 
         for(dice in dicesToChange) {
@@ -163,10 +163,33 @@ class ZanzibarConsole: ZanzibarView {
 
             dicesToKeep.add(someDice)
         }
+        for(dice in dicesToKeep) {
+            println(dice)
+        }
 //        println("dicesToChange : $dicesToChange")
 //        println("diceToKeep : $dicesToKeep")
 
-        return player
+        return dicesToKeep
+
+    }
+
+    override fun askToContinueRound(): Boolean {
+        val choice: String?
+
+        println("Do you want to rolling dice again? Y/N")
+        choice = readLine()!!
+
+        return when(choice.toUpperCase()) {
+            "Y" -> true
+            "N" -> false
+            else -> false
+        }
+    }
+
+    override fun makeScoreVelueCorrespondance(dices: MutableList<Dice>) {
+        print(dices[0].value)
+        print(dices[1].value)
+        print(dices[2].value)
     }
 }
 
