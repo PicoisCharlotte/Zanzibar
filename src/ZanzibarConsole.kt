@@ -90,7 +90,7 @@ class ZanzibarConsole: ZanzibarView {
 
     override fun orderPlayers(players: MutableList<Player>, playerBegin: Player): MutableList<Player> {
         var playersOrder : MutableList<Player> = mutableListOf()
-        playersOrder = players.sortedBy {it.score }.toMutableList()
+        playersOrder = players.sortedBy { it.score }.toMutableList()
         return playersOrder.asReversed()
     }
 
@@ -110,8 +110,8 @@ class ZanzibarConsole: ZanzibarView {
         return dices
     }
 
-    override fun keepDice(dices: MutableList<Dice>): MutableList<Dice>{
-        val diceToKeep: MutableList<Dice> = mutableListOf()
+    override fun changeDice(dices: MutableList<Dice>): MutableList<Dice>{
+        val diceToChange: MutableList<Dice> = mutableListOf()
 
         var choice: String?
 
@@ -121,13 +121,15 @@ class ZanzibarConsole: ZanzibarView {
             println("Do you want to change another one ? Y/N")
             choice = readLine()
             for (dice in dices) {
-                if(dice.idDice ==  answer!!.toInt())
-                diceToKeep.add(dice)
+                if(dice.idDice ==  answer!!.toInt()) {
+                    diceToChange.add(dice)
+                }
             }
 
         } while (choice!!.startsWith("y", ignoreCase = true))
 
-        return diceToKeep
+
+        return diceToChange
     }
 
 
@@ -148,18 +150,21 @@ class ZanzibarConsole: ZanzibarView {
         return dices
     }
 
-    override fun rollDice(dicesToChange: MutableList<Dice>, dices: MutableList<Dice>, player: Player): Player {
+    override fun rollDice(dicesToChange: MutableList<Dice>, dicesToKeep: MutableList<Dice>, player: Player): Player {
         val random = Random()
 
-        val diceList: MutableList<Dice> = mutableListOf()
+        for(dice in dicesToChange) {
+            if(dicesToKeep.contains(dice)) {
+                dicesToKeep.remove(dice)
+            }
 
-        for(dice in dices) {
+
             val someDice = Dice(dice.idDice, random.nextInt(1..7))
 
-            diceList.add(someDice)
+            dicesToKeep.add(someDice)
         }
-        println("diceList : $diceList")
-        println("dices : $dices")
+//        println("dicesToChange : $dicesToChange")
+//        println("diceToKeep : $dicesToKeep")
 
         return player
     }

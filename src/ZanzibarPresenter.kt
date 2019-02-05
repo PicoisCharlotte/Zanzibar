@@ -1,4 +1,3 @@
-import model.Game
 import model.Player
 
 class ZanzibarPresenter {
@@ -18,7 +17,7 @@ class ZanzibarPresenter {
         playersOrder = zanzibarView.resetScore(playersOrder)
         for(player in playersOrder){
             val dices = zanzibarView.firstRound(player)
-            val diceToChange = zanzibarView.keepDice(dices)
+            val diceToChange = zanzibarView.changeDice(dices)
 
             zanzibarView.rollDice(diceToChange, dices, player)
 
