@@ -54,7 +54,6 @@ class ZanzibarPresenter {
             }
         }
         //val game = Game(playersOrder, score)
-
     }
 }
 
