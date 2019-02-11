@@ -23,4 +23,6 @@ interface ZanzibarView {
     fun askToContinueRound(): Boolean
 
     fun makeScoreValueCorrespondance(dices: MutableList<Dice>)
+
+    fun getScore(dices: MutableList<Dice>): Int
 }

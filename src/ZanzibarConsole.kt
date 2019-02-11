@@ -1,8 +1,10 @@
 import model.Dice
 import model.Player
+import model.Score
 import java.util.*
 
 class ZanzibarConsole: ZanzibarView {
+
     override fun welcomeGame() {
         println("Welcome to Zanzibar !")
     }
@@ -104,26 +106,27 @@ class ZanzibarConsole: ZanzibarView {
     override fun firstRound(player: Player): MutableList<Dice> {
         val dices: MutableList<Dice> = rollThreeDices()
 
-        for (dice in dices) {
-            println(dice)
-        }
         return dices
     }
 
     override fun changeDice(dices: MutableList<Dice>): MutableList<Dice>{
         val diceToChange: MutableList<Dice> = mutableListOf()
 
-        var choice: String?
+        var choice: String? = ""
 
         do {
             println("Which dice(s) will you change ?")
             val answer = readLine()
-            println("Do you want to change another one ? Y/N")
-            choice = readLine()
-            for (dice in dices) {
-                if(dice.idDice ==  answer!!.toInt()) {
-                    diceToChange.add(dice)
+            if(answer != "" && answer != " ") {
+                println("Do you want to change another one ? Y/N")
+                choice = readLine()
+                for (dice in dices) {
+                    if (dice.idDice == answer!!.toInt()) {
+                        diceToChange.add(dice)
+                    }
                 }
+            } else {
+                println("Please, choose a correct answer")
             }
 
         } while (choice!!.startsWith("y", ignoreCase = true))
@@ -156,29 +159,7 @@ class ZanzibarConsole: ZanzibarView {
         for(dice in diceToChange){
             dice.value = random.nextInt(1..7)
         }
-
-        for(dice in diceToKeep) {
-            println(dice)
-        }
-
-//        for(dice in diceToChange) {
-//            if(diceToKeep.contains(dice)) {
-//                diceToKeep.remove(dice)
-//            }
-//
-//
-//            val someDice = Dice(dice.idDice, dice.value(random.nextInt(1..7)))
-//
-//            diceToKeep.add(someDice)
-//        }
-//        for(dice in diceToKeep) {
-//            println(dice)
-//        }
-//        println("dicesToChange : $dicesToChange")
-//        println("diceToKeep : $dicesToKeep")
-
         return diceToKeep
-
     }
 
     override fun askToContinueRound(): Boolean {
@@ -195,9 +176,25 @@ class ZanzibarConsole: ZanzibarView {
     }
 
     override fun makeScoreValueCorrespondance(dices: MutableList<Dice>) {
-        print(dices[0].value)
-        print(dices[1].value)
-        print(dices[2].value)
+        //print(dices[0].value)
+        //print(dices[1].value)
+        //print(dices[2].value)
+    }
+
+    override fun getScore(dices: MutableList<Dice>): Int {
+        var score = 0
+        if(dices[0].value == dices[1].value && dices[1].value == dices[2].value){
+            when(dices[1].value){
+                1 -> score = Score.ACES.value
+                2 -> score = Score.TWO.value
+                3 -> score = Score.THREE.value
+                4 -> score = Score.FOUR.value
+                5 -> score = Score.FIVE.value
+                6 -> score = Score.SIX.value
+                else -> score = 0
+            }
+        }
+        return score
     }
 }
 
