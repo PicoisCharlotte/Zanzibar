@@ -25,4 +25,6 @@ interface ZanzibarView {
     fun makeScoreValueCorrespondance(dices: MutableList<Dice>)
 
     fun getScore(dices: MutableList<Dice>): Int
+
+    fun compareScore(players: MutableList<Player>): Int
 }

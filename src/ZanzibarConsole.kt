@@ -118,12 +118,16 @@ class ZanzibarConsole: ZanzibarView {
             println("Which dice(s) will you change ?")
             val answer = readLine()
             if(answer != "" && answer != " ") {
-                println("Do you want to change another one ? Y/N")
-                choice = readLine()
-                for (dice in dices) {
-                    if (dice.idDice == answer!!.toInt()) {
-                        diceToChange.add(dice)
+                try {
+                    println("Do you want to change another one ? Y/N")
+                    choice = readLine()
+                    for (dice in dices) {
+                        if (dice.idDice == answer!!.toInt()) {
+                            diceToChange.add(dice)
+                        }
                     }
+                } catch (e: NumberFormatException){
+                    println("error : " + e.toString())
                 }
             } else {
                 println("Please, choose a correct answer")
@@ -157,7 +161,7 @@ class ZanzibarConsole: ZanzibarView {
         val random = Random()
 
         for(dice in diceToChange){
-            dice.value = random.nextInt(1..7)
+            dice.value = random.nextInt(1..2)
         }
         return diceToKeep
     }
@@ -194,6 +198,19 @@ class ZanzibarConsole: ZanzibarView {
                 else -> score = 0
             }
         }
+        return score
+    }
+
+    override fun compareScore(players: MutableList<Player>): Int {
+        var i = 1
+        var score = 0
+        while(i < players.size){
+            if(players.get(i).score > score){
+                score = players.get(i).score
+            }
+            i++
+        }
+
         return score
     }
 }
