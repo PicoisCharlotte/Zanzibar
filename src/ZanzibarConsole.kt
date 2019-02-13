@@ -161,7 +161,7 @@ class ZanzibarConsole: ZanzibarView {
         val random = Random()
 
         for(dice in diceToChange){
-            dice.value = random.nextInt(1..2)
+            dice.value = random.nextInt(1..7)
         }
         return diceToKeep
     }
@@ -177,12 +177,6 @@ class ZanzibarConsole: ZanzibarView {
             "N" -> false
             else -> false
         }
-    }
-
-    override fun makeScoreValueCorrespondance(dices: MutableList<Dice>) {
-        //print(dices[0].value)
-        //print(dices[1].value)
-        //print(dices[2].value)
     }
 
     override fun getScore(dices: MutableList<Dice>): Int {
