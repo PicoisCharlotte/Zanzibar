@@ -77,7 +77,6 @@ class ZanzibarConsole: ZanzibarView {
                 || !checkIfInputIsEmpty(choice)
                 || !checkIfInputIsEmpty(scoreToReach.toString())
         )
-
         return scoreToReach
     }
 
@@ -145,16 +144,12 @@ class ZanzibarConsole: ZanzibarView {
             }
 
             if(checkIfInputIsEmpty(answer) && numeric) {
-                try {
-                    println("Do you want to change another one ? Y/N")
-                    choice = readLine()
-                    for (dice in dices) {
-                        if (dice.idDice == answer!!.toInt()) {
-                            diceToChange.add(dice)
-                        }
+                println("Do you want to change another one ? Y/N")
+                choice = readLine()
+                for (dice in dices) {
+                    if (dice.idDice == answer!!.toInt()) {
+                        diceToChange.add(dice)
                     }
-                } catch (e: NumberFormatException){
-                    println("error : " + e.toString())
                 }
             }
         } while (choice!!.startsWith("y", ignoreCase = true)
@@ -227,7 +222,6 @@ class ZanzibarConsole: ZanzibarView {
             }
             i++
         }
-
         return score
     }
 }
@@ -254,4 +248,3 @@ private fun checkStringIsNumeric(str: String?): Boolean{
 private fun Random.nextInt(range: IntRange): Int {
     return range.start + nextInt(range.last - range.start)
 }
-
