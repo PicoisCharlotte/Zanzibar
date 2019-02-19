@@ -1,6 +1,7 @@
 import model.Dice
 import model.Player
 import model.Score
+import java.lang.Double.parseDouble
 import java.util.*
 
 class ZanzibarConsole: ZanzibarView {
@@ -14,22 +15,32 @@ class ZanzibarConsole: ZanzibarView {
         val players: MutableList<Player> = mutableListOf()
 
         for (i in 1..numberPlayer) {
-            println("Enter name of player n°$i")
-            val name: String? = readLine()
+            do {
+                println("Enter name of player n°$i")
+                val name: String? = readLine()
+                val player = Player(name, 0)
+                players.add(player)
 
-            val player = Player(name, 0)
-
-            players.add(player)
+            } while (!checkIfInputIsEmpty(name))
         }
         return players
     }
 
     private fun askNumberOfPlayer(): Int {
-        var number: Int
+        var number: Int = 0
+
         do {
             println("How many players will join ? (min 2)")
             val playerNumber: String? = readLine()
-            number = playerNumber?.toInt() ?: 2
+            var numeric = checkStringIsNumeric(playerNumber)
+
+            if (!numeric)
+                println("Please choose a number of player")
+
+            if (checkIfInputIsEmpty(playerNumber) && numeric) {
+                number = playerNumber?.toInt() ?: 2
+
+            }
 
         } while (number < 2)
 
@@ -39,24 +50,33 @@ class ZanzibarConsole: ZanzibarView {
     }
 
     override fun askScoreToReach(): Int {
-        var scoreToReach: Int
+        var scoreToReach: Int = 0
         var choice: String? = null
         var score: String?
 
         do {
             println("Now, you have to decide score to reach to win :")
             score = readLine()
-            //2 is minimum because 3*2 = 2
-            scoreToReach = score?.toInt() ?: 2
+            val numeric = checkStringIsNumeric(score)
+            if (!numeric) {
+                println("Please choose a correct score")
+            }
+
+            if(checkIfInputIsEmpty(score) && numeric) {
+                scoreToReach = score?.toInt() ?: 2
+            }
 
             if(scoreToReach < 2) {
                 println("Score can't be under 2")
             }else{
-                println("Score fixed at $score. Do you valid this score? Y/N")
+                println("Score fixed at $scoreToReach. Do you valid this score? Y/N")
                 choice = readLine()
             }
         } while (scoreToReach < 2
-                || choice!!.startsWith("n", true))
+                || choice!!.startsWith("n", true)
+                || !checkIfInputIsEmpty(choice)
+                || !checkIfInputIsEmpty(scoreToReach.toString())
+        )
 
         return scoreToReach
     }
@@ -113,11 +133,18 @@ class ZanzibarConsole: ZanzibarView {
         val diceToChange: MutableList<Dice> = mutableListOf()
 
         var choice: String? = ""
+        var numeric: Boolean
 
         do {
             println("Which dice(s) will you change ?")
             val answer = readLine()
-            if(answer != "" && answer != " ") {
+            numeric = checkStringIsNumeric(answer)
+
+            if (!numeric) {
+                println("Please select correct dice number")
+            }
+
+            if(checkIfInputIsEmpty(answer) && numeric) {
                 try {
                     println("Do you want to change another one ? Y/N")
                     choice = readLine()
@@ -129,17 +156,13 @@ class ZanzibarConsole: ZanzibarView {
                 } catch (e: NumberFormatException){
                     println("error : " + e.toString())
                 }
-            } else {
-                println("Please, choose a correct answer")
             }
-
-        } while (choice!!.startsWith("y", ignoreCase = true))
-
+        } while (choice!!.startsWith("y", ignoreCase = true)
+                || !checkStringIsNumeric(answer)
+        )
 
         return diceToChange
     }
-
-
 
     private fun rollThreeDices(): MutableList<Dice> {
         val random = Random()
@@ -169,7 +192,7 @@ class ZanzibarConsole: ZanzibarView {
     override fun askToContinueRound(): Boolean {
         val choice: String?
 
-        println("Do you want to rolling dice again? Y/N")
+        println("Do you want to roll dice again? Y/N")
         choice = readLine()!!
 
         return when(choice.toUpperCase()) {
@@ -209,8 +232,26 @@ class ZanzibarConsole: ZanzibarView {
     }
 }
 
+private fun checkIfInputIsEmpty(str: String?): Boolean {
+    if(str!!.trim() != "" && str != " ") {
+        return true
+    }
+    println("Please choose a correct answer")
+    return false
+}
+
+private fun checkStringIsNumeric(str: String?): Boolean{
+    val numeric: Boolean = try {
+        parseDouble(str)
+        true
+    }catch (e: NumberFormatException) {
+        false
+    }
+
+    return numeric
+}
+
 private fun Random.nextInt(range: IntRange): Int {
     return range.start + nextInt(range.last - range.start)
 }
-
 
